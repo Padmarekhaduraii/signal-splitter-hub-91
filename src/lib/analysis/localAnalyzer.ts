@@ -53,7 +53,7 @@ function extractEntities(sentences: Sentence[]): string[] {
     const tokens = s.text.split(/\s+/);
     let buf: string[] = [];
     tokens.forEach((tok, i) => {
-      const clean = tok.replace(/^[^A-Za-z0-9]+|[^A-Za-z0-9%.]+$/g, "");
+      const clean = tok.replace(/^[^A-Za-z0-9]+|[^A-Za-z0-9%]+$/g, "");
       const capitalized = /^[A-Z][A-Za-z0-9&.'-]*$/.test(clean) && clean.length > 1;
       const sentenceStart = i === 0;
       if (capitalized && !(sentenceStart && buf.length === 0)) buf.push(clean);
