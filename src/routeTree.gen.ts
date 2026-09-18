@@ -10,33 +10,89 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ContentStudioRouteImport } from './routes/content-studio'
+import { Route as FactLockRouteImport } from './routes/fact-lock'
+import { Route as QualityCheckRouteImport } from './routes/quality-check'
+import { Route as SourceAnalysisRouteImport } from './routes/source-analysis'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ContentStudioRoute = ContentStudioRouteImport.update({
+  id: '/content-studio',
+  path: '/content-studio',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FactLockRoute = FactLockRouteImport.update({
+  id: '/fact-lock',
+  path: '/fact-lock',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QualityCheckRoute = QualityCheckRouteImport.update({
+  id: '/quality-check',
+  path: '/quality-check',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SourceAnalysisRoute = SourceAnalysisRouteImport.update({
+  id: '/source-analysis',
+  path: '/source-analysis',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/content-studio': typeof ContentStudioRoute
+  '/fact-lock': typeof FactLockRoute
+  '/quality-check': typeof QualityCheckRoute
+  '/source-analysis': typeof SourceAnalysisRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/content-studio': typeof ContentStudioRoute
+  '/fact-lock': typeof FactLockRoute
+  '/quality-check': typeof QualityCheckRoute
+  '/source-analysis': typeof SourceAnalysisRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/content-studio': typeof ContentStudioRoute
+  '/fact-lock': typeof FactLockRoute
+  '/quality-check': typeof QualityCheckRoute
+  '/source-analysis': typeof SourceAnalysisRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/content-studio'
+    | '/fact-lock'
+    | '/quality-check'
+    | '/source-analysis'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/content-studio'
+    | '/fact-lock'
+    | '/quality-check'
+    | '/source-analysis'
+  id:
+    | '__root__'
+    | '/'
+    | '/content-studio'
+    | '/fact-lock'
+    | '/quality-check'
+    | '/source-analysis'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ContentStudioRoute: typeof ContentStudioRoute
+  FactLockRoute: typeof FactLockRoute
+  QualityCheckRoute: typeof QualityCheckRoute
+  SourceAnalysisRoute: typeof SourceAnalysisRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +104,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/content-studio': {
+      id: '/content-studio'
+      path: '/content-studio'
+      fullPath: '/content-studio'
+      preLoaderRoute: typeof ContentStudioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fact-lock': {
+      id: '/fact-lock'
+      path: '/fact-lock'
+      fullPath: '/fact-lock'
+      preLoaderRoute: typeof FactLockRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/quality-check': {
+      id: '/quality-check'
+      path: '/quality-check'
+      fullPath: '/quality-check'
+      preLoaderRoute: typeof QualityCheckRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/source-analysis': {
+      id: '/source-analysis'
+      path: '/source-analysis'
+      fullPath: '/source-analysis'
+      preLoaderRoute: typeof SourceAnalysisRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ContentStudioRoute: ContentStudioRoute,
+  FactLockRoute: FactLockRoute,
+  QualityCheckRoute: QualityCheckRoute,
+  SourceAnalysisRoute: SourceAnalysisRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

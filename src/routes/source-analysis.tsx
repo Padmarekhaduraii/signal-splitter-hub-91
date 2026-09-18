@@ -1,0 +1,20 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowRight, BarChart3, LoaderCircle } from "lucide-react";
+import { useState } from "react";
+import { AppShell } from "@/components/signal/AppShell";
+import { Button } from "@/components/signal/Button";
+import { PageHeader, Panel } from "@/components/signal/PageHeader";
+
+export const Route = createFileRoute("/source-analysis")({ head: () => ({ meta: [{ title: "Source Analysis — Signal Splitter" }, { name: "description", content: "Extract structured ideas, claims and context from long-form source content." }, { property: "og:title", content: "Source Analysis — Signal Splitter" }, { property: "og:description", content: "Turn a long-form source into a structured, fact-aware content signal." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }] }), component: SourceAnalysis });
+const initial = "The 2024 Content Reuse Gap: 78% of long-form reports are never repurposed. Teams lose reach by treating each platform as a blank page instead of a verified split of one source. The report surveyed 640 editorial and marketing leaders across B2B technology companies. Teams using a source-first workflow produced four times more derivative assets while cutting review cycles by 32%. This report maps the workflow that keeps every derivative claim locked to its evidence.";
+const analysis = [
+  ["Key ideas", ["Source-first workflows reduce blank-page work", "Platform adaptation should preserve factual meaning", "Evidence links make review faster"]],
+  ["Claims", ["78% of long-form reports receive no derivative content", "Source-first teams produce 4× more derivative assets", "Review cycles fell by 32%"]],
+  ["Statistics", ["78% not repurposed", "640 leaders surveyed", "4× more assets", "32% faster reviews"]],
+  ["Entities", ["Content Reuse Gap", "B2B technology companies", "Editorial and marketing leaders"]],
+  ["Important quotes", ["Treat every platform as a verified split of one source.", "Adapt the delivery — never the facts."]],
+];
+function SourceAnalysis() { const [loading,setLoading]=useState(false); const [analyzed,setAnalyzed]=useState(true); const run=()=>{setLoading(true);setTimeout(()=>{setLoading(false);setAnalyzed(true)},700)}; return <AppShell><PageHeader eyebrow="Source signal" title="Analyze once. Build from verified context." description="Paste long-form material to establish the ideas, evidence, audience and tone every output must preserve." />
+  <Panel className="mb-6"><label htmlFor="source" className="eyebrow">Source content</label><textarea id="source" defaultValue={initial} className="mt-3 h-56 w-full resize-y rounded-lg border-0 bg-panel/75 p-4 text-sm leading-7 text-ink/80 ring-1 ring-ink/10 outline-none focus:ring-2 focus:ring-brand/40" /><div className="mt-4 flex flex-wrap items-center gap-3"><Button variant="primary" onClick={run} disabled={loading}>{loading ? <LoaderCircle className="size-4 animate-spin" /> : <BarChart3 className="size-4" />}{loading ? "Analyzing…" : "Analyze Source"}</Button><span className="text-xs text-ink/45">1,284 words · English · 6 min read</span></div></Panel>
+  {analyzed && <><div className="mb-6 grid gap-4 sm:grid-cols-3">{[["Intended audience","Editorial and content leaders"],["Tone","Authoritative, measured, practical"],["Purpose","Build adoption for source-first reuse"]].map(([k,v])=><Panel key={k}><p className="eyebrow">{k}</p><p className="mt-2 text-sm font-medium">{v}</p></Panel>)}</div><div className="grid gap-4 lg:grid-cols-2">{analysis.map(([title,items])=><Panel key={title as string}><h2 className="font-mono text-xs font-semibold uppercase text-ink/55">{title}</h2><ul className="mt-4 space-y-3">{(items as string[]).map(item=><li key={item} className="flex gap-3 text-sm leading-relaxed text-ink/70"><span className="mt-2 size-1.5 shrink-0 rounded-full bg-brand" />{item}</li>)}</ul></Panel>)}</div><div className="mt-6 flex justify-end"><Link to="/content-studio"><Button variant="primary">Open Content Studio <ArrowRight className="size-4" /></Button></Link></div></>}
+</AppShell> }
